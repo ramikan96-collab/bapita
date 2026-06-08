@@ -309,7 +309,7 @@
     /* ─── PROOF STRIP ─────────────────────────────────── */
     .proof-bar {
       background: var(--amber);
-      padding: 1.75rem 1.5rem;
+      padding: 1.25rem 1.5rem;
     }
     .proof-bar-inner {
       max-width: 1000px;
@@ -337,8 +337,8 @@
     @media (max-width: 600px) { .proof-bar-inner { grid-template-columns: repeat(2, 1fr); } }
 
     /* ─── TESTIMONIALS STRIP ──────────────────────────── */
-    .tstrip { background: var(--cream-2); padding: 1.75rem 1.5rem; }
-    .section.tstrip { padding: 1.75rem 1.5rem; }
+    .tstrip { background: var(--cream-2); padding: 1.25rem 1.5rem; }
+    .section.tstrip { padding: 1.25rem 1.5rem; }
     .tstrip-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -392,9 +392,9 @@
     }
 
     /* ─── LAYOUT HELPERS ──────────────────────────────── */
-    .section { padding: clamp(3rem, 5.5vw, 4.5rem) 1.5rem; scroll-margin-top: 80px; }
+    .section { padding: clamp(3rem, 5.5vw, 4.5rem) 1.5rem; scroll-margin-top: 64px; }
     .section-inner { max-width: 1160px; margin: 0 auto; }
-    .section, .pain-header { scroll-margin-top: 80px; }
+    .section, .pain-header { scroll-margin-top: 64px; }
     .section-label {
       font-size: .71875rem;
       font-weight: 700;
@@ -414,6 +414,12 @@
     .section-center { text-align: center; margin-bottom: 2.5rem; }
     .section-head { margin-bottom: 2.25rem; }
 
+    /* Tighter spacing inside process-band */
+    .process-band .section-head { margin-bottom: 1.25rem; }
+    .process-band .section-title { margin-bottom: .5rem; }
+    .process-band .card { padding: 1.125rem 1.125rem; }
+    .process-band .card p { font-size: .875rem; }
+
     /* ─── PAIRED BLOCK: HOW IT WORKS + WHAT WE BUILD ──── */
     /* Both read as one cohesive band (same bg, tight gap). */
     /* ─── PROCESS BAND ────────────────────────────────── */
@@ -424,8 +430,8 @@
     }
     .process-band .howitworks,
     .process-band .solution { flex: 1; }
-    .howitworks { background: var(--cream-2); padding-top: clamp(2.5rem, 4vw, 3.5rem); padding-bottom: 1.5rem; }
-    .solution   { background: var(--cream-2); padding-top: 1.5rem; padding-bottom: clamp(2rem, 4vw, 3rem); }
+    .howitworks { background: var(--cream-2); padding-top: clamp(1.75rem, 3vw, 2.5rem); padding-bottom: 1rem; }
+    .solution   { background: var(--cream-2); padding-top: 1rem; padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 
     /* Shared card grid for both rows */
     .card-grid {
