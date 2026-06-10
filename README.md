@@ -6,6 +6,79 @@ Done-for-you booking platform for Israeli appointment businesses.
 **Tagline:** Built for you. Runs without you.  
 **Stack:** Next.js 16 + Supabase + Vercel
 
+---
+
+## Progress Tracker
+
+- [ ] Chat 1 — README & Organization
+- [ ] Chat 2 — Design System Document
+- [ ] Chat 3 — App Shell + Login
+- [ ] Chat 4 — Calendar
+- [ ] Chat 5 — Clients List + Client Profile
+- [ ] Chat 6 — New Booking Flow
+- [ ] Chat 7 — Insights
+- [ ] Chat 8 — Settings + Profile + Add-ons
+- [ ] Chat 9 — Public Booking Page (/book/[slug])
+- [ ] Chat 10 — Landing Page (bapita.com)
+
+Full prompt for each chat: `v2/docs/specs/2026-06-10-bapita-master-plan.md`
+
+---
+
+## Quick Reference
+
+### Live URLs
+| What | URL |
+|---|---|
+| Landing page | https://bapita.com |
+| Owner dashboard | https://dashboard.bapita.com |
+
+### Repos on disk
+| Repo | Path |
+|---|---|
+| Docs + landing page | `/Users/admin/Desktop/bapita/` |
+| Dashboard (Next.js) | `/Users/admin/Desktop/bapita-dashboard/` |
+
+### GitHub
+| Repo | GitHub |
+|---|---|
+| Landing page + docs | `ramikan96-collab/bapita` |
+| Dashboard | `ramikan96-collab/bapita-dashboard` |
+
+### Vercel projects
+| What | Project |
+|---|---|
+| Dashboard | `ramis-projects-ff4a249e / bapita-dashboard` |
+| Landing page | `ramikan96-collab / bapita` |
+
+### Key commands
+```bash
+# Push dashboard changes
+cd /Users/admin/Desktop/bapita-dashboard
+git add src/ && git commit -m "..." && git push
+
+# Push landing page (has its own git at v2/src/dashboard/)
+git -C /Users/admin/Desktop/bapita/v2/src/dashboard add index.html
+git -C /Users/admin/Desktop/bapita/v2/src/dashboard commit -m "..."
+git -C /Users/admin/Desktop/bapita/v2/src/dashboard push
+
+# Push docs/README changes
+git -C /Users/admin/Desktop/bapita add README.md && git -C /Users/admin/Desktop/bapita commit -m "..." && git -C /Users/admin/Desktop/bapita push
+```
+
+### Environment variables (dashboard Vercel project)
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+RESEND_API_KEY=
+```
+
+WhatsApp add-on: `META_VERIFY_TOKEN`, `META_APP_SECRET`, `ANTHROPIC_API_KEY`, `CRON_SECRET`  
+Stripe add-on: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+
+---
+
 ## What Bapita builds for clients
 - Booking website (public): services, gallery, calendar, booking form, email confirmation — deployed on client's own domain
 - Owner dashboard (private): today/week view, booking list, client history, stats — centralized at dashboard.bapita.com
@@ -37,17 +110,29 @@ Push to `main` → Vercel auto-deploys (both repos).
 
 ```
 bapita/                         ← this repo (landing page + docs)
-├── shared/                     — research and competitive intel
+├── index.html                  — root-level LP copy (legacy)
+├── img/                        — root-level assets (legacy)
+├── shared/
+│   └── research/               — market research and competitive intel
 ├── v1/                         — archived v1 (WhatsApp Cloud API stack)
+│   ├── docs/
+│   └── specs/
 └── v2/
     ├── docs/
     │   ├── strategy.md
     │   ├── mvp-design.md
+    │   ├── google-doc-summary.md
     │   ├── brand/bapita-brand-doc-v2.md
-    │   └── specs/2026-06-08-dashboard-design.md
-    └── src/dashboard/
-        ├── index.html          — landing page (bapita.com)
-        └── img/
+    │   ├── design/              — logo exports (SVG, HTML)
+    │   └── specs/
+    │       ├── 2026-06-08-dashboard-design.md
+    │       └── 2026-06-10-bapita-master-plan.md  ← 10-chat guide
+    ├── specs/                  — additional v2 specs
+    └── src/
+        ├── dashboard/          — landing page (bapita.com), own .git
+        │   ├── index.html
+        │   └── img/
+        └── dashboard-app/      — old scaffolding / supabase config
 
 bapita-dashboard/               ← separate repo (Next.js app)
 └── src/
@@ -60,6 +145,7 @@ bapita-dashboard/               ← separate repo (Next.js app)
     │   │   ├── addons/         — add-on management (WhatsApp, Stripe)
     │   │   ├── settings/       — business info + services
     │   │   └── profile/        — password change
+    │   ├── book/[slug]/        — public customer booking page
     │   ├── login/              — login + signup tabs
     │   └── manifest.ts         — PWA manifest
     ├── components/
@@ -160,17 +246,6 @@ ADD COLUMN IF NOT EXISTS business_hours JSONB DEFAULT '{
 | Hosting | Vercel |
 | Database + Auth | Supabase (shared project, RLS per `business_id`) |
 | Email | Resend — `noreply@bapita.com` (requires domain DNS verification) |
-
-### Environment variables (dashboard Vercel project)
-```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-RESEND_API_KEY=
-```
-
-WhatsApp add-on: `META_VERIFY_TOKEN`, `META_APP_SECRET`, `ANTHROPIC_API_KEY`, `CRON_SECRET`  
-Stripe add-on: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 
 ---
 
