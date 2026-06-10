@@ -46,7 +46,7 @@ This plan fixes everything in 10 ordered chat sessions. Each session ends with a
 - [x] Chat 1 — README & Organization
 - [x] Chat 2 — Design System Document
 - [x] Chat 3 — App Shell + Login
-- [ ] Chat 4 — Calendar
+- [x] Chat 4 — Calendar
 - [ ] Chat 5 — Clients List + Client Profile
 - [ ] Chat 6 — New Booking Flow
 - [ ] Chat 7 — Insights

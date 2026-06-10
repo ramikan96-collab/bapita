@@ -10,10 +10,10 @@ Done-for-you booking platform for Israeli appointment businesses.
 
 ## Progress Tracker
 
-- [ ] Chat 1 — README & Organization
-- [ ] Chat 2 — Design System Document
-- [ ] Chat 3 — App Shell + Login
-- [ ] Chat 4 — Calendar
+- [x] Chat 1 — README & Organization
+- [x] Chat 2 — Design System Document
+- [x] Chat 3 — App Shell + Login
+- [x] Chat 4 — Calendar
 - [ ] Chat 5 — Clients List + Client Profile
 - [ ] Chat 6 — New Booking Flow
 - [ ] Chat 7 — Insights
