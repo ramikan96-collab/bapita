@@ -84,7 +84,7 @@
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 76px;
-      scroll-snap-type: y proximity;
+      scroll-snap-type: y mandatory;
     }
 
     body {
@@ -1273,7 +1273,7 @@
     }
 
     /* ─── TESTIMONIALS (marquee) ─────────────────────── */
-    .tstrip { background: var(--cream); padding: clamp(3.75rem,7vw,6rem) 0; overflow: hidden; }
+    .tstrip { background: var(--cream); padding: clamp(4.5rem,8vw,7rem) 0; overflow: hidden; }
     .tstrip-head { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem 3rem; text-align: center; }
     .tmarquee { display: flex; flex-direction: column; gap: 1.25rem; }
     .tmarquee-row { overflow: hidden; }
@@ -1303,7 +1303,7 @@
     .tmeta { font-size: .8rem; color: var(--text-muted); }
 
     /* ─── FAQ ─────────────────────────────────────────── */
-    .faq { background: var(--cream-2); }
+    .faq { background: var(--cream-2); padding: clamp(5rem,10vw,9rem) 1.5rem; }
     .faq-layout { display: grid; grid-template-columns: 1fr 1.7fr; gap: 4rem; align-items: start; }
     .faq-sticky { position: sticky; top: 104px; }
     .faq-cta-block { margin-top: 2.25rem; }
@@ -1660,15 +1660,15 @@
     @media (max-width: 768px) {
       .section { padding: 2.75rem 1.25rem; }
       .section-head { margin-bottom: 2rem; }
+      .faq { padding: 3.5rem 1.25rem; }
     }
 
     /* ─── SCROLL SNAP ────────────────────────────────────── */
     .hero,
-    .proof-bar,
     .section,
-    .tstrip,
     .final-cta {
       scroll-snap-align: start;
+      scroll-snap-stop: normal;
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-snap-type: none; }
