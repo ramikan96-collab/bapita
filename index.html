@@ -84,7 +84,7 @@
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 76px;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity;
     }
 
     body {
@@ -309,6 +309,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      min-height: 92vh;
       padding: clamp(3.5rem,9vh,6rem) 1.5rem clamp(4rem,9vh,6.5rem);
       justify-content: flex-start;
     }
@@ -1273,7 +1274,7 @@
     }
 
     /* ─── TESTIMONIALS (marquee) ─────────────────────── */
-    .tstrip { background: var(--cream); padding: clamp(4.5rem,8vw,7rem) 0; overflow: hidden; }
+    .tstrip { background: var(--cream); padding: clamp(5rem,9vw,8rem) 0; overflow: hidden; }
     .tstrip-head { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem 3rem; text-align: center; }
     .tmarquee { display: flex; flex-direction: column; gap: 1.25rem; }
     .tmarquee-row { overflow: hidden; }
@@ -1303,8 +1304,8 @@
     .tmeta { font-size: .8rem; color: var(--text-muted); }
 
     /* ─── FAQ ─────────────────────────────────────────── */
-    .faq { background: var(--cream-2); padding: clamp(5rem,10vw,9rem) 1.5rem; }
-    .faq-layout { display: grid; grid-template-columns: 1fr 1.7fr; gap: 4rem; align-items: start; }
+    .faq { background: var(--cream-2); padding: clamp(5.5rem,11vw,10rem) 1.5rem; }
+    .faq-layout { display: grid; grid-template-columns: 1fr 1.7fr; gap: 5rem; align-items: start; }
     .faq-sticky { position: sticky; top: 104px; }
     .faq-cta-block { margin-top: 2.25rem; }
     .faq-still { font-size: .875rem; color: var(--text-muted); margin-bottom: .5rem; }
@@ -1333,8 +1334,9 @@
     /* ─── FINAL CTA ───────────────────────────────────── */
     .final-cta {
       --glow-x: 50%; --glow-y: 50%;
-      background: var(--dark); padding: clamp(4.5rem, 8vw, 6.5rem) 1.5rem;
+      background: var(--dark); padding: clamp(6rem, 10vw, 9rem) 1.5rem;
       text-align: center; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
     .final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(600px circle at var(--glow-x) var(--glow-y), rgba(232,146,10,.16) 0%, transparent 60%); pointer-events: none; z-index: 0; transition: background .08s linear; }
     .final-cta-inner { max-width: 620px; margin: 0 auto; position: relative; z-index: 1; }
@@ -1673,6 +1675,16 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-snap-type: none; }
     }
+
+    /* ─── SECTION MIN-HEIGHTS ────────────────────────────── */
+    /* Min-heights ensure proximity snap always triggers cleanly.
+       Testimonials intentionally excluded — flows freely between sections. */
+    .section.pain   { min-height: 88vh; }
+    .section.hiw    { min-height: 88vh; }
+    .section.build  { min-height: 86vh; }
+    .section.addons { min-height: 84vh; }
+    .section.faq    { min-height: 90vh; }
+    .final-cta      { min-height: 72vh; }
 
     /* ─── FOOTER CTA ─────────────────────────────────────── */
     .footer-cta {
