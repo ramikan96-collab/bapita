@@ -442,7 +442,8 @@
       color: var(--amber-dark);
       margin-bottom: 1.5rem;
     }
-    .hero h1 { color: var(--ink); margin-bottom: 1.25rem; letter-spacing: -.04em; line-height: 1.02; text-wrap: balance; }
+    .hero h1 { color: var(--ink); margin-bottom: 1.25rem; letter-spacing: -.04em; line-height: 1.02; }
+    .hero h1 > span:first-child { white-space: nowrap; }
     .hero h1 .accent { color: var(--amber); }
     .hero-sub {
       font-size: clamp(1.125rem, 2.2vw, 1.3125rem);
@@ -3166,7 +3167,7 @@
         hamburger.setAttribute('aria-expanded', 'false');
         const navH = document.getElementById('nav').offsetHeight;
         document.documentElement.style.scrollSnapType = 'none';
-        window.scrollTo({ top: target.offsetTop - navH, behavior: 'smooth' });
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navH, behavior: 'smooth' });
         setTimeout(() => { document.documentElement.style.scrollSnapType = ''; }, 900);
       }
     });
