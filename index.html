@@ -524,7 +524,7 @@
     .pp-chip-txt { font-size:11.5px; font-weight:700; color:var(--ink); line-height:1.3; }
     .pp-chip-txt small { display:block; font-weight:500; color:var(--text-muted); font-size:10px; }
     @keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
-    @media (max-width:480px){ .pp-chip{ inset-inline-end:-8px; inset-inline-start:auto; top:26%; padding:7px 10px 7px 7px; font-size:10.5px; } }
+    @media (max-width:480px){ .pp-chip{ inset-inline-end:-8px; inset-inline-start:auto; top:5%; padding:7px 10px 7px 7px; font-size:10.5px; } }
     @media (prefers-reduced-motion:reduce){ .pp-chip{ animation:none; } }
     .pp-success { display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:46px 18px; gap:10px; }
     #heroBooking.done .pp-body { display:none; }
@@ -858,24 +858,41 @@
 
     @media (max-width: 820px) {
       .pain-layout { grid-template-columns: 1fr; gap: 0; }
-      .pain-right {
-        height: 320px;
-        order: -1;
-        border-radius: var(--r-card) var(--r-card) 0 0;
-        margin-bottom: 0;
-      }
+      .pain-right { display: none; }
       .pain-left {
         background: var(--surface);
-        border-radius: 0 0 var(--r-card) var(--r-card);
+        border-radius: var(--r-card);
         border: 1px solid var(--line);
-        border-top: none;
-        padding: 1rem .5rem .5rem;
+        overflow: hidden;
+        padding: 0;
+        gap: 0;
       }
-      .pain-row { cursor: default; }
+      .pain-row {
+        cursor: pointer;
+        border-bottom: 1px solid var(--line);
+        border-inline-start-width: 3px;
+        padding: 1rem 1.125rem 1rem .875rem;
+        border-radius: 0;
+        box-shadow: none;
+      }
       .pain-row .pain-row-headline { opacity: 1; }
-      .psc-card { max-width: 300px; padding: 1.125rem; }
-      .psc-result { padding: .5rem .625rem; }
-      .psc-search-bar { padding: .4rem .7rem; margin-bottom: .875rem; }
+      .pain-mobile-scene {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height .38s var(--ease);
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--line);
+      }
+      .pain-row.active + .pain-mobile-scene { max-height: 460px; }
+      .pain-mobile-scene .pain-scene {
+        position: relative; inset: auto;
+        opacity: 1; pointer-events: auto;
+        padding: 1.25rem 1rem;
+        height: auto;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .pain-mobile-scene .psc-maps-shell { max-width: 100%; width: 100%; }
+      .pain-mobile-scene .psc-card { max-width: 100%; width: 100%; padding: 1rem; }
     }
 
     /* ─── CARD GRID (how it works + what we build) ────── */
@@ -1165,17 +1182,29 @@
       .bento-phone-wrap { min-height: 160px; }
       .bento-tile.secondary,
       .bento-tile.tertiary {
-        padding: 1.25rem 1.25rem 1rem;
+        padding: .875rem 1rem .75rem;
       }
+      .bento-tile.secondary .bento-p,
+      .bento-tile.tertiary .bento-p { display: none; }
+      .bento-tile.secondary .bento-ico,
+      .bento-tile.tertiary .bento-ico { width: 34px; height: 34px; border-radius: 9px; margin-bottom: .75rem; }
+      .bento-tile.secondary .bento-ico svg,
+      .bento-tile.tertiary .bento-ico svg { width: 17px; height: 17px; }
+      .bento-tile.secondary .bento-h,
+      .bento-tile.tertiary .bento-h { font-size: 1rem; margin-bottom: .375rem; }
       .bento-tile.secondary .bento-dash-header,
       .bento-tile.secondary .bento-dash-stats { font-size: .75rem; }
       .bento-tile.secondary .bento-dash-stat-n { font-size: .875rem; }
       .bento-tile.secondary .bento-dash-stat-l { font-size: .6rem; }
-      .bento-tile.secondary .bento-dash-row { font-size: .75rem; padding: .25rem 0; }
-      .bento-tile.tertiary .bento-addon-stack { gap: .25rem; margin-top: .625rem; }
-      .bento-tile.tertiary .bento-addon-row { padding: .4rem .625rem; }
+      .bento-tile.secondary .bento-dash-appts { margin-top: .375rem; }
+      .bento-tile.secondary .bento-dash-row { font-size: .75rem; padding: .2rem 0; }
+      .bento-tile.secondary .bento-dash-row:last-child { display: none; }
+      .bento-tile.secondary .bento-dash-mini { margin-top: .5rem; }
+      .bento-tile.tertiary .bento-addon-stack { gap: .25rem; margin-top: .5rem; }
+      .bento-tile.tertiary .bento-addon-row { padding: .35rem .625rem; }
       .bento-tile.tertiary .bento-addon-label { font-size: .75rem; }
       .bento-tile.tertiary .bento-addon-sub { font-size: .6125rem; }
+      .bento-tile.tertiary .bento-addon-row:last-child { display: none; }
       .bento-h { font-size: 1.125rem; }
       .bento-tile.main .bento-h { font-size: 1.25rem; }
     }
@@ -1418,6 +1447,28 @@
       .tmarquee-track { animation-duration: 40s; }
       .tmarquee-row.rev .tmarquee-track { animation-duration: 44s; }
       .tstrip { padding: clamp(3rem,6vw,5rem) 0; }
+    }
+    @media (max-width: 600px) {
+      .tmarquee { gap: .875rem; }
+      .tmarquee-row {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+        padding-bottom: 4px;
+      }
+      .tmarquee-row::-webkit-scrollbar { display: none; }
+      .tmarquee-row.rev { display: none; }
+      .tmarquee-track {
+        animation: none !important;
+        width: auto;
+        padding: 0 1rem;
+        gap: .875rem;
+      }
+      .tcard { width: 78vw; flex-shrink: 0; }
+      .tmarquee-track .tcard:nth-child(n+7) { display: none; }
     }
     .tcard {
       background: #fff; border: 1px solid var(--line);
@@ -1764,26 +1815,40 @@
     .hiw-notif-dot--green { background: #22C55E; }
 
     @media (max-width: 820px) {
-      .hiw-layout { grid-template-columns: 1fr; gap: 0; }
-      .hiw-right {
-        position: relative;
-        height: 280px;
-        top: auto;
-        order: -1;
-        border-radius: var(--r-card) var(--r-card) 0 0;
-        margin-bottom: 0;
-      }
+      .hiw-layout { grid-template-columns: 1fr; }
+      .hiw-right { display: none; }
+      .hiw-track { display: none; }
       .hiw-steps {
         background: var(--surface);
-        border-radius: 0 0 var(--r-card) var(--r-card);
+        border-radius: var(--r-card);
         border: 1px solid var(--line);
-        border-top: none;
-        padding: .75rem 0 .5rem;
+        overflow: hidden;
+        padding: 0;
       }
-      .hiw-card { padding: 1.25rem; }
-      .hiw-row { cursor: pointer; padding: .875rem .875rem .875rem .125rem; }
-      .hiw-p { max-height: none !important; }
-      .hiw-row.active .hiw-p { max-height: 200px; }
+      .hiw-row {
+        cursor: pointer;
+        padding: 1rem .875rem 1rem .625rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .hiw-p { max-height: 0; opacity: 0; transition: max-height .35s var(--ease), opacity .25s; }
+      .hiw-row.active .hiw-p { max-height: 200px; opacity: 1; }
+      .hiw-mobile-scene {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height .38s var(--ease);
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--line);
+      }
+      .hiw-row.active + .hiw-mobile-scene { max-height: 380px; }
+      .hiw-mobile-scene .hiw-scene {
+        position: relative; inset: auto;
+        opacity: 1; pointer-events: auto;
+        height: auto;
+        padding: 1.25rem 1rem;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .hiw-card { padding: 1rem; width: 100%; max-width: 300px; }
+      .hiw-site-win { max-width: 280px; }
     }
 
     .hiw-closer {
@@ -1851,7 +1916,7 @@
     .section.hiw    { min-height: 88vh; }
     .section.build  { min-height: 86vh; }
     .section.addons { min-height: 84vh; }
-    .section.faq    { min-height: 90vh; }
+    .section.faq    { min-height: 90vh; scroll-snap-align: none; }
     .final-cta      { min-height: 72vh; }
 
     /* ─── FOOTER CTA ─────────────────────────────────────── */
@@ -3104,8 +3169,7 @@
         e.preventDefault();
         mobileMenu.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
-        const y = target.getBoundingClientRect().top + window.scrollY - 90;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
@@ -3169,6 +3233,25 @@
         });
       });
     }
+  })();
+
+  // ─── Pain section: mobile accordion (scene appears below each row)
+  (function initPainMobile() {
+    if (!window.matchMedia('(max-width: 820px)').matches) return;
+    const rows = document.querySelectorAll('.pain-row');
+    const scenes = document.querySelectorAll('.pain-scene');
+    if (!rows.length || !scenes.length) return;
+    rows.forEach((row, i) => {
+      const panel = document.createElement('div');
+      panel.className = 'pain-mobile-scene';
+      const scene = scenes[i];
+      if (scene) {
+        const clone = scene.cloneNode(true);
+        clone.classList.add('active');
+        panel.appendChild(clone);
+      }
+      row.insertAdjacentElement('afterend', panel);
+    });
   })();
 
   // ─── Hero booking flow
@@ -3287,6 +3370,25 @@
       row.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(i); }
       });
+    });
+  })();
+
+  // ─── HIW: mobile accordion (scene appears below each step)
+  (function initHIWMobile() {
+    if (!window.matchMedia('(max-width: 820px)').matches) return;
+    const rows = document.querySelectorAll('.hiw-row');
+    const scenes = document.querySelectorAll('.hiw-scene');
+    if (!rows.length || !scenes.length) return;
+    rows.forEach((row, i) => {
+      const panel = document.createElement('div');
+      panel.className = 'hiw-mobile-scene';
+      const scene = scenes[i];
+      if (scene) {
+        const clone = scene.cloneNode(true);
+        clone.classList.add('active');
+        panel.appendChild(clone);
+      }
+      row.insertAdjacentElement('afterend', panel);
     });
   })();
 
