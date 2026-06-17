@@ -1963,7 +1963,7 @@
     <div class="nav-actions">
       <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">עברית</button>
       <a href="https://dashboard.bapita.com" class="btn-login" data-cta="nav_login" data-i18n="nav.login">Login</a>
-      <a href="#" class="btn-nav" onclick="openConnectModal(event)" data-cta="nav_desktop" data-i18n="cta.talk">Let's talk</a>
+      <a href="#" class="btn-nav" data-cta="nav_desktop" data-i18n="cta.talk">Let's talk</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -1975,7 +1975,7 @@
     <a href="#automations" data-i18n="nav.addons">Add-ons</a>
     <a href="#faq" data-i18n="nav.faq">FAQ</a>
     <div class="mobile-menu-ctas">
-      <a href="#" class="btn-primary" style="justify-content:center;" onclick="openConnectModal(event)" data-cta="nav_mobile" data-i18n="cta.talk">Let's talk</a>
+      <a href="#" class="btn-primary" style="justify-content:center;" data-cta="nav_mobile" data-i18n="cta.talk">Let's talk</a>
       <a href="https://dashboard.bapita.com" class="mobile-menu-login" data-cta="nav_login_mobile" data-i18n="nav.login">Login</a>
     </div>
     <div style="border-top:1px solid var(--line);margin-top:.25rem;padding-top:.75rem;">
@@ -1992,7 +1992,7 @@
       <h1 class="display"><span data-i18n="hero.h1a">Your business, online.</span><br><span class="accent" data-i18n="hero.h1b">Done for you.</span></h1>
       <p class="hero-sub" data-i18n="hero.sub">A booking website, owner dashboard, and automations. Built for your business in 48 hours.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn-primary lg" onclick="openConnectModal(event)" data-cta="hero_primary" data-i18n="cta.talk">Let's talk</a>
+        <a href="#" class="btn-primary lg" data-cta="hero_primary" data-i18n="cta.talk">Let's talk</a>
       </div>
       <p class="hero-trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.trust">One 30-minute call. No commitment.</span></p>
     </div>
@@ -2427,7 +2427,7 @@
     <!-- Closer bar -->
     <div class="hiw-closer fade-up">
       <p class="hiw-closer-text" data-i18n="how.closer">One call. 48 hours. Done.</p>
-      <a href="#" class="btn-primary" onclick="openConnectModal(event)" data-cta="hiw_cta" data-i18n="cta.talk">Let's talk</a>
+      <a href="#" class="btn-primary" data-cta="hiw_cta" data-i18n="cta.talk">Let's talk</a>
     </div>
 
   </div>
@@ -2909,7 +2909,7 @@
   <div class="final-cta-inner fade-up">
     <h2 data-i18n="final.title">Ready to get started?</h2>
     <p data-i18n="final.p">One call, 30 minutes. We will learn your business, tell you exactly what we would build, and answer every question you have. No pitch. No commitment.</p>
-    <a href="#" class="btn-primary lg" onclick="openConnectModal(event)" data-cta="final_cta" data-i18n="cta.book">Book a free call</a>
+    <a href="#" class="btn-primary lg" data-cta="final_cta" data-i18n="cta.book">Book a free call</a>
     <div class="final-trust-chips">
       <span data-i18n="chip.1">✓ No commitment</span>
       <span data-i18n="chip.2">✓ 48h turnaround</span>
@@ -3694,6 +3694,17 @@
   document.getElementById('bap-backdrop').addEventListener('click', closeConnectModal);
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && document.getElementById('bap-modal').style.display !== 'none') closeConnectModal();
+  });
+
+  // Intercept all CTA clicks via delegation — resilient to innerHTML replacements by applyLang
+  var SKIP_CTAS = ['nav_login', 'nav_login_mobile', 'footer'];
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('[data-cta]');
+    if (!el) return;
+    var cta = el.getAttribute('data-cta');
+    if (!cta || SKIP_CTAS.indexOf(cta) !== -1) return;
+    e.preventDefault();
+    openConnectModal(e);
   });
 })();
 </script>
